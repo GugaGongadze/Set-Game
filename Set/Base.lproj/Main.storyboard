@@ -112,6 +112,20 @@
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outletCollection property="cards" destination="h1R-gl-vuD" collectionClass="NSMutableArray" id="TAH-bm-Wk0"/>
+                        <outletCollection property="cards" destination="BGX-be-5Qs" collectionClass="NSMutableArray" id="sel-N4-ihH"/>
+                        <outletCollection property="cards" destination="Obi-kF-KKN" collectionClass="NSMutableArray" id="24i-37-oZ3"/>
+                        <outletCollection property="cards" destination="aGs-pN-M31" collectionClass="NSMutableArray" id="0ij-vx-6JR"/>
+                        <outletCollection property="cards" destination="V0u-Uf-hYb" collectionClass="NSMutableArray" id="hpj-RT-cNs"/>
+                        <outletCollection property="cards" destination="EBj-ac-fuS" collectionClass="NSMutableArray" id="tZK-vO-kAj"/>
+                        <outletCollection property="cards" destination="Bnd-ue-FaK" collectionClass="NSMutableArray" id="n2x-6G-7cg"/>
+                        <outletCollection property="cards" destination="xV9-O8-gGg" collectionClass="NSMutableArray" id="d16-qr-O3K"/>
+                        <outletCollection property="cards" destination="Tda-I3-ZmI" collectionClass="NSMutableArray" id="Dsq-vu-uAe"/>
+                        <outletCollection property="cards" destination="024-rm-Vwk" collectionClass="NSMutableArray" id="2zl-fW-thv"/>
+                        <outletCollection property="cards" destination="EBa-s6-lA8" collectionClass="NSMutableArray" id="w5l-9j-HRg"/>
+                        <outletCollection property="cards" destination="rqO-gd-2Px" collectionClass="NSMutableArray" id="3Xk-tw-RxE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
