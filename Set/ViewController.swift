@@ -28,21 +28,21 @@ class ViewController: UIViewController {
             // Determine shape
             switch card.shape {
             case .Triangle:
-                button.setTitle("▲", for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: "▲"), for: .normal)
             case .Rectangle:
-                button.setTitle("■", for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: "■"), for: .normal)
             case .Oval:
-                button.setTitle("●", for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: "●"), for: .normal)
             }
             
             // Determine color
             switch card.color {
             case .Blue:
-                button.setTitleColor(#colorLiteral(red: 0.05882352963, green: 0.180392161, blue: 0.2470588237, alpha: 1), for: .normal)
+                button.setTitleColor(#colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1), for: .normal)
             case .Green:
-                button.setTitleColor(#colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1), for: .normal)
+                button.setTitleColor(#colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1), for: .normal)
             case .Red:
-                button.setTitleColor(#colorLiteral(red: 0.3176470697, green: 0.07450980693, blue: 0.02745098062, alpha: 1), for: .normal)
+                button.setTitleColor(#colorLiteral(red: 0.9372549057, green: 0.3490196168, blue: 0.1921568662, alpha: 1), for: .normal)
             }
             
             // Determine fill
@@ -56,8 +56,7 @@ class ViewController: UIViewController {
                     .strokeColor: color!
                 ]
                 
-                let attr = NSAttributedString(string: title!, attributes: attrs)
-                button.setAttributedTitle(attr, for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: title!, attributes: attrs), for: .normal)
             case .Striped:
                 let title = button.title(for: .normal)
                 let color = button.titleColor(for: .normal)
@@ -66,8 +65,7 @@ class ViewController: UIViewController {
                     .foregroundColor: color!.withAlphaComponent(0.15)
                 ]
                 
-                let attr = NSAttributedString(string: title!, attributes: attrs)
-                button.setAttributedTitle(attr, for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: title!, attributes: attrs), for: .normal)
             case .Full:
                 let title = button.title(for: .normal)
                 let color = button.titleColor(for: .normal)
@@ -76,8 +74,7 @@ class ViewController: UIViewController {
                     .foregroundColor: color!.withAlphaComponent(100)
                 ]
                 
-                let attr = NSAttributedString(string: title!, attributes: attrs)
-                button.setAttributedTitle(attr, for: .normal)
+                button.setAttributedTitle(NSAttributedString(string: title!, attributes: attrs), for: .normal)
             }
             
             // Determine quantity
@@ -105,4 +102,3 @@ class ViewController: UIViewController {
 
 
 }
-
