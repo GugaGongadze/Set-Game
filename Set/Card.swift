@@ -32,7 +32,7 @@ enum Fill: CaseIterable {
     case Full
 }
 
-struct Card {
+struct Card: Hashable {
     let quantity: Quantity
     let color: Color
     let shape: Shape
