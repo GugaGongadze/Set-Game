@@ -12,24 +12,44 @@ class ViewController: UIViewController {
     private var game = SetGame()
     
     @IBOutlet weak var remainingCardsLabel: UILabel!
+    @IBOutlet weak var gameScoreLabel: UILabel!
+    @IBOutlet weak var dealMoreCardsButton: UIButton!
+    
     @IBOutlet var cardButtons: [UIButton]!
     
     @IBAction func onCardSelection(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender) {
             game.chooseCard(at: cardNumber)
             
-            updateViewFromModel()
-            
+            if game.cards.count == 0 {
+                resetGame()
+            } else {
+                updateViewFromModel()
+            }
         }
     }
     
     @IBAction func onDealMoreCards(_ sender: UIButton) {
-        print("Deal 3 More Cards!")
+        let hiddenButtonsRemaining = cardButtons.filter {$0.isHidden == true}.count
+        var buttonsToHide = hiddenButtonsRemaining >= 3 ? 3 : hiddenButtonsRemaining
+        game.numberOfManuallyDealtCards += buttonsToHide
+        
+        for button in cardButtons {
+            if button.isHidden && buttonsToHide > 0 {
+                button.isHidden = false
+                buttonsToHide -= 1
+            }
+        }
+        
+        if game.cards.count <= 24 || game.numberOfManuallyDealtCards == 12 {
+            dealMoreCardsButton.isEnabled = false
+        }
+        
+        game.dealMoreCards()
     }
     
     @IBAction func onNewGame(_ sender: UIButton) {
-        game = SetGame()
-        updateViewFromModel()
+        resetGame()
     }
     
     override func viewDidLoad() {
@@ -43,25 +63,44 @@ class ViewController: UIViewController {
     private func updateViewFromModel() {
         for index in cardButtons.indices {
             let button = cardButtons[index]
-            let card = game.cards[index]
-            
-            if game.selectedCards.contains(card) {
-                button.layer.borderWidth = 3.0
-                button.layer.borderColor = UIColor.blue.cgColor
+            if let card = game.cards[safe: index] {
+                if game.selectedCards.contains(card) {
+                    button.layer.borderWidth = 3.0
+                    button.layer.borderColor = UIColor.blue.cgColor
+                } else {
+                    button.layer.borderWidth = 0.0
+                    button.layer.borderColor = nil
+                }
             } else {
-                button.layer.borderWidth = 0.0
-                button.layer.borderColor = nil
+                button.isHidden = true
             }
         }
         
         initializeCards()
-        remainingCardsLabel.text = "Remaining Cards: \(game.cards.count - 12)"
+        remainingCardsLabel.text = "Remaining Cards: \(game.cards.count)"
+        gameScoreLabel.text = "Game Score: \(game.score)"
+    }
+    
+    private func resetGame() {
+        for button in cardButtons {
+            button.isHidden = false
+        }
+        game = SetGame()
+        initializeCards()
+        dealMoreCardsButton.isEnabled = true
     }
     
     private func initializeCards() {
-        for (index, card) in game.cards[0...11].enumerated() {
+        let remainingCards = game.cards.count
+        let cardRange = remainingCards < 24 ? game.cards[0...remainingCards - 1] : game.cards[0...23]
+        
+        for (index, card) in cardRange.enumerated() {
             let button = cardButtons[index]
             button.layer.cornerRadius = 8.0
+            
+            if index >= 12 + game.numberOfManuallyDealtCards {
+                button.isHidden = true
+            }
             
             switch card.shape {
             case .Triangle:
@@ -165,3 +204,10 @@ class ViewController: UIViewController {
     }
     
 }
+
+extension Array {
+    subscript(safe index: Int) -> Element? {
+        return indices.contains(index) ? self[index] : nil
+    }
+}
+

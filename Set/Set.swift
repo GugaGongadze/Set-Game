@@ -9,8 +9,10 @@
 import Foundation
 
 struct SetGame {
-    var cards = [Card]()
-    var selectedCards = Set<Card>()
+    private(set) var cards = [Card]()
+    private(set) var selectedCards = Set<Card>()
+    private(set) var score = 0
+    var numberOfManuallyDealtCards = 0
     
     init() {
         for quantity in Quantity.allCases {
@@ -28,32 +30,37 @@ struct SetGame {
     
     mutating func chooseCard(at index: Int) {
         let chosenCard = cards[index]
-        print(chosenCard)
         
         if selectedCards.contains(chosenCard) {
             selectedCards.remove(chosenCard)
+            score -= 1
         } else {
             if selectedCards.count == 2 {
-                // Check if a set if formed
+                
                 selectedCards.insert(chosenCard)
-                print(setCanBeFormed(from: selectedCards))
+                
                 if setCanBeFormed(from: selectedCards) {
                     for selectedCard in selectedCards {
                         if let cardIndex = cards.firstIndex(of: selectedCard) {
                             cards.remove(at: cardIndex)
                         }
                     }
+                    
+                    score += 3
                 } else {
-//                    print(selectedCards)
-                    // Decrement score
+                    score -= 10
                 }
                 
-                // Reset selection
                 selectedCards = []
+                
             } else {
                 selectedCards.insert(chosenCard)
             }
         }
+    }
+    
+    mutating func dealMoreCards() {
+        score -= 5
     }
     
     private func setCanBeFormed(from cards: Set<Card>) -> Bool {
